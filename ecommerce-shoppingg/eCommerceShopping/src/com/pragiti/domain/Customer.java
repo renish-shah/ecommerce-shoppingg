@@ -7,7 +7,7 @@ package com.pragiti.domain;
  * @author renish
  *
  */
-public class User {
+public class Customer {
 
 	private String firstName;
 	private String lastName;

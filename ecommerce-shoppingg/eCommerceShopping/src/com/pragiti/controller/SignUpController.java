@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.pragiti.domain.User;
+import com.pragiti.dao.impl.CustomerDAOImpl;
+import com.pragiti.domain.Customer;
 
 @Controller
 public class SignUpController {
@@ -15,16 +16,18 @@ public class SignUpController {
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
 	public ModelAndView showSignUp() {
 
-		// ModelAndView (JSP Page, Command Name, Domain Object) 
-		return new ModelAndView("login", "login", new User());
+		// ModelAndView (JSP Page, Command Name, Domain Object)
+		return new ModelAndView("login", "login", new Customer());
 	}
 
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
-	public String doSignUp(@ModelAttribute("user") User user,
+	public String doSignUp(@ModelAttribute("user") Customer customer,
 			BindingResult result) {
 
-		System.out.println("First Name:" + user.getFirstName() + "Last Name:"
-				+ user.getLastName());
+		System.out.println("First Name:" + customer.getFirstName()
+				+ "Last Name:" + customer.getLastName());
+
+		new CustomerDAOImpl().getContext(customer);
 
 		return "redirect:contacts.html";
 	}
