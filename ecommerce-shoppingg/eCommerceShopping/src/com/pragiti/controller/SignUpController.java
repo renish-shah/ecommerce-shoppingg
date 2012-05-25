@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.pragiti.dao.CustomerDAO;
 import com.pragiti.dao.impl.CustomerDAOImpl;
 import com.pragiti.domain.Customer;
 
@@ -28,10 +26,19 @@ public class SignUpController {
 		System.out.println("First Name:" + customer.getFirstName()
 				+ "Last Name:" + customer.getLastName());
 
-		CustomerDAO customerDAO = new CustomerDAOImpl().getContext();
-		customerDAO.doSignUp(customer);
+		if(new CustomerDAOImpl().doSignUp(customer))
+			return "redirect:home.html";
+		else
+			return "redirect:signUp.html";
+	}
 
-		return "redirect:contacts.html";
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public ModelAndView showHome() {
+
+		System.out.println("home apge");
+
+		// ModelAndView (JSP Page, Command Name, Domain Object)
+		return new ModelAndView("home", "items", new Customer());
 	}
 
 }
