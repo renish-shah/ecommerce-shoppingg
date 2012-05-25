@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pragiti.dao.CustomerDAO;
 import com.pragiti.dao.impl.CustomerDAOImpl;
 import com.pragiti.domain.Customer;
 
@@ -27,7 +28,8 @@ public class SignUpController {
 		System.out.println("First Name:" + customer.getFirstName()
 				+ "Last Name:" + customer.getLastName());
 
-		new CustomerDAOImpl().getContext(customer);
+		CustomerDAO customerDAO = new CustomerDAOImpl().getContext();
+		customerDAO.doSignUp(customer);
 
 		return "redirect:contacts.html";
 	}
