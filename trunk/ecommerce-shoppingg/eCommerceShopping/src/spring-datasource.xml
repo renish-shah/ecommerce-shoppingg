@@ -12,9 +12,8 @@
 		<property name="password" value="admin" />
 	</bean>
 
-	<bean id="customerDAO" class="com.pragiti.dao.impl.CustomerDAOImpl">
+	<bean id="connectionDAO" class="com.pragiti.dao.impl.ConnectionDAOImpl">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-
 
 </beans>

@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.pragiti.dao.ConnectionDAO;
 import com.pragiti.dao.CustomerDAO;
 import com.pragiti.domain.Customer;
 
@@ -25,18 +27,20 @@ public class CustomerDAOImpl implements CustomerDAO {
 		this.dataSource = dataSource;
 	}
 
-	public CustomerDAO getContext() {
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"/spring-datasource.xml");
-
-		return customerDAO = (CustomerDAO) context.getBean("customerDAO");
-		
-		//customerDAO.insertRecords(customer);// rt(customer);
-
-		// Customer customer1 = customerDAO.findByCustomerId(1);
-		// System.out.println(customer1);
-	}
-
+	/*
+	 * public CustomerDAO getContext() { ApplicationContext context = new
+	 * ClassPathXmlApplicationContext( "/spring-datasource.xml");
+	 * 
+	 * DataSource dataSource = (DataSource) context.getBean("dataSource");
+	 * Connection connection = dataSource.getConnection();
+	 * 
+	 * return customerDAO = (CustomerDAO) context.getBean("customerDAO");
+	 * 
+	 * // customerDAO.insertRecords(customer);// rt(customer);
+	 * 
+	 * // Customer customer1 = customerDAO.findByCustomerId(1); //
+	 * System.out.println(customer1); }
+	 */
 	public boolean checkSignIn(Customer customer) {
 		Connection conn = null;
 		java.sql.Statement statement = null;
@@ -84,10 +88,10 @@ public class CustomerDAOImpl implements CustomerDAO {
 				+ customer.getEmail() + "'";
 
 		try {
+			ConnectionDAO dao = new ConnectionDAOImpl().setupDataSource();
+			conn = dao.getJdbcConnection();
 
-			conn = dataSource.getConnection();
 			statement = conn.createStatement();
-
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
 				return false;
