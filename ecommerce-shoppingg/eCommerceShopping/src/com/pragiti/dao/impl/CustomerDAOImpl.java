@@ -20,6 +20,7 @@ import com.pragiti.domain.Customer;
  */
 public class CustomerDAOImpl implements CustomerDAO {
 
+	private static final String CUSTOMER_ID = "customerId";
 	private DataSource dataSource;
 	static CustomerDAO customerDAO;
 
@@ -41,11 +42,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 * // Customer customer1 = customerDAO.findByCustomerId(1); //
 	 * System.out.println(customer1); }
 	 */
-	public boolean checkSignIn(Customer customer) {
+	public int checkSignIn(Customer customer) {
+		
 		Connection conn = null;
 		java.sql.Statement statement = null;
 
-		String sql = "select * from customer where email = '"
+		String sql = "select customerId from customer where email = '"
 				+ customer.getEmail() + "' and password = '"
 				+ customer.getPassword() + "'";
 
@@ -53,17 +55,21 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 		try {
 
-			conn = dataSource.getConnection();
+			ConnectionDAO dao = new ConnectionDAOImpl().setupDataSource();
+			conn = dao.getJdbcConnection();
+
 			statement = conn.createStatement();
 
 			ResultSet rs = statement.executeQuery(sql);
+			
 			while (rs.next()) {
-				return true;
+				System.out.println("CustomerId is :"+rs.getString(CUSTOMER_ID));
+				return Integer.parseInt(rs.getString(CUSTOMER_ID));
 			}
-			return false;
+			
 		} catch (Exception e) {
 			System.out.println("Exception in Checking SignIn:" + e);
-			return false;
+			return 0;
 		} finally {
 			if (conn != null) {
 				try {
@@ -76,6 +82,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 				}
 			}
 		}
+		return 0;
 	}
 
 	@Override

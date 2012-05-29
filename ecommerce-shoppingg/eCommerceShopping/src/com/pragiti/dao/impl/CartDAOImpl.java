@@ -35,8 +35,8 @@ public class CartDAOImpl implements CartDAO {
 
 			statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
-			List<ProductItem> itemList=new ArrayList<>();
-			
+			List<ProductItem> itemList = new ArrayList<>();
+
 			while (rs.next()) {
 
 				ProductItem item = new ProductItem();
@@ -48,7 +48,7 @@ public class CartDAOImpl implements CartDAO {
 				itemList.add(item);
 			}
 			return itemList;
-			
+
 		} catch (Exception e) {
 			System.out.println("Exception in Checking SignIn:" + e);
 			return null;
@@ -72,10 +72,10 @@ public class CartDAOImpl implements CartDAO {
 		Connection conn = null;
 		java.sql.Statement statement = null;
 
-		customerId = 5;
+		// customerId = 5;
 
 		String sql = "select product_quantity from cart where customerId='"
-				+ customerId + "'";
+				+ customerId + "' and productId='" + productId + "'";
 
 		try {
 			ConnectionDAO dao = new ConnectionDAOImpl().setupDataSource();
@@ -84,32 +84,63 @@ public class CartDAOImpl implements CartDAO {
 			statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
 
-			while (rs.next()) {
-				System.out.println("" + rs.getString(0));
+			System.out.println("" + rs.getRow());
+			if (rs.getRow() == 0) {
+				rs = null;
+				sql = "insert into cart(customerId, productId) values("
+						+ customerId + "," + productId + ")";
+
+			} else {
+
+				rs.next();
+				int productQuantity = rs.getInt(0);
+				System.out.println("Product Q :" + productQuantity);
+
+				sql = "insert into cart(customerId, productId, product_quantity) values('"
+						+ customerId
+						+ "','"
+						+ productId
+						+ "', '"
+						+ (productQuantity + 1)
+						+ "') where customerId='"
+						+ customerId + "' and productId='" + productId + "'";
 			}
 
+			System.out.println("SQL :" + sql);
+			statement = conn.createStatement();
+			int rowCount = statement.executeUpdate(sql);
+
+			System.out.println("Row Count :" + rowCount);
+			return true;
+
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("Exception :" + e);
+			return false;
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					System.out
+							.println("SQL Exception while closing connection:"
+									+ e);
+
+				}
+			}
 		}
 
-		sql = "insert into cart(customerId, productQuantity) values() where customerId='"
-				+ customerId + "' and productId='" + productId + "'";
-
-		return false;
 	}
 
 	@Override
 	public boolean viewCart(int customerId, int productId) {
 		// TODO Auto-generated method stub
-		
 
 		Connection conn = null;
 		java.sql.Statement statement = null;
 
 		String sql = "SELECT productId from cart where customerId='"
 				+ customerId + "'";
-		
-		
+
 		try {
 			ConnectionDAO dao = new ConnectionDAOImpl().setupDataSource();
 			conn = dao.getJdbcConnection();
@@ -120,20 +151,29 @@ public class CartDAOImpl implements CartDAO {
 			while (rs.next()) {
 				System.out.println("" + rs.getString(0));
 			}
-			
-				
-			while(rs.next()) {
+
+			while (rs.next()) {
 				System.out.println("" + rs.getString(0));
 			}
 
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					System.out
+							.println("SQL Exception while closing connection:"
+									+ e);
+
+				}
+			}
 		}
 
 		sql = "insert into cart(customerId, productQuantity) values() where customerId='"
 				+ customerId + "' and productId='" + productId + "'";
 
-		
 		return false;
 	}
 
@@ -162,12 +202,22 @@ public class CartDAOImpl implements CartDAO {
 
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					System.out
+							.println("SQL Exception while closing connection:"
+									+ e);
+
+				}
+			}
 		}
 
 		sql = "DELETE FROM cart(customerId, productQuantity) values() where customerId='"
 				+ customerId + "' and productId='" + productId + "'";
 
-		
 		return false;
 	}
 
