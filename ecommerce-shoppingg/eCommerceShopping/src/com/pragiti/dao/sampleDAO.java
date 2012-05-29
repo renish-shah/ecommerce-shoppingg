@@ -1,4 +1,4 @@
-package com.pragiti.dao;
+/*package com.pragiti.dao;
 
 public interface sampleDAO {
 	
@@ -6,3 +6,4 @@ public interface sampleDAO {
 
 
 }
+*/

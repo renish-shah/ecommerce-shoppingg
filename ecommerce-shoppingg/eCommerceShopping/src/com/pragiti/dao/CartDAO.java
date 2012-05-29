@@ -4,9 +4,9 @@ public interface CartDAO {
 
 	public boolean showItems();
 
-	public boolean addToCart();
+	public boolean addToCart(int customerId, int productId);
 
-	public boolean removeFromCart();
+	public boolean removeFromCart(int customerId, int productId);
 
 	public boolean viewCart();
 
