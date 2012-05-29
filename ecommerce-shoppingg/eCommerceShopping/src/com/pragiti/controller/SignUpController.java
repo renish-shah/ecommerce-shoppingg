@@ -34,6 +34,4 @@ public class SignUpController {
 			return "redirect:signUp.html";
 	}
 
-	
-
 }
