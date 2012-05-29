@@ -29,7 +29,7 @@ public class SignInController {
 		System.out.println("Email:" + user.getEmail() + "Password:"
 				+ user.getPassword());
 
-		return "redirect:contacts.html";
+		return "redirect:home.html";
 	}
 
 }

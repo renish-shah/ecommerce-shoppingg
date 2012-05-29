@@ -7,6 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-hi,.,home pge
+hi,.,Home Page
+
+${items}
+
+<%
+
+	
+
+%>
+
 </body>
 </html>

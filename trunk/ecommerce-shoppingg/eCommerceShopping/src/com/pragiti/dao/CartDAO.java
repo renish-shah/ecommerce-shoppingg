@@ -1,8 +1,12 @@
 package com.pragiti.dao;
 
+import java.util.List;
+
+import com.pragiti.domain.ProductItem;
+
 public interface CartDAO {
 
-	public boolean showItems();
+	public List<ProductItem> showItems();
 
 	public boolean addToCart(int customerId, int productId);
 

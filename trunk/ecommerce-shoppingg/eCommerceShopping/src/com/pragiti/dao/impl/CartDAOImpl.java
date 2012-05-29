@@ -6,6 +6,8 @@ package com.pragiti.dao.impl;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.pragiti.dao.CartDAO;
 import com.pragiti.dao.ConnectionDAO;
@@ -18,7 +20,7 @@ import com.pragiti.domain.ProductItem;
 public class CartDAOImpl implements CartDAO {
 
 	@Override
-	public boolean showItems() {
+	public List<ProductItem> showItems() {
 
 		Connection conn = null;
 		java.sql.Statement statement = null;
@@ -33,6 +35,8 @@ public class CartDAOImpl implements CartDAO {
 
 			statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
+			List<ProductItem> itemList=new ArrayList<>();
+			
 			while (rs.next()) {
 
 				ProductItem item = new ProductItem();
@@ -41,11 +45,13 @@ public class CartDAOImpl implements CartDAO {
 				item.setName(rs.getString("product_name"));
 				item.setPrice(rs.getString("product_price"));
 				item.setQuantity(rs.getString("product_quantity"));
-
+				itemList.add(item);
 			}
+			return itemList;
+			
 		} catch (Exception e) {
 			System.out.println("Exception in Checking SignIn:" + e);
-			return false;
+			return null;
 		} finally {
 			if (conn != null) {
 				try {
@@ -58,7 +64,6 @@ public class CartDAOImpl implements CartDAO {
 				}
 			}
 		}
-		return false;
 	}
 
 	@Override

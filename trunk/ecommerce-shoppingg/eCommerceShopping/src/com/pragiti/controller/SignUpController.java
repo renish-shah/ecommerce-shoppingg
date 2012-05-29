@@ -32,13 +32,6 @@ public class SignUpController {
 			return "redirect:signUp.html";
 	}
 
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public ModelAndView showHome() {
-
-		System.out.println("home apge");
-
-		// ModelAndView (JSP Page, Command Name, Domain Object)
-		return new ModelAndView("home", "items", new Customer());
-	}
+	
 
 }
