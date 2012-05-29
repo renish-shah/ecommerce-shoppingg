@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:forward page="signUp.html"></jsp:forward>
+	<jsp:forward page="checkout.html"></jsp:forward>
 </body>
 </html>

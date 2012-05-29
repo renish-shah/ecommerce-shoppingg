@@ -6,7 +6,6 @@ public class CreditCardDetails {
 	private String creditcard_number;
 	private String expyear;
 	private String expmonth;
-	private String cvv_number;
 	
 	
 	
@@ -40,6 +39,8 @@ public class CreditCardDetails {
 	public void setCvv_number(String cvv_number) {
 		this.cvv_number = cvv_number;
 	}
+	private String cvv_number;
 	
+		
  
 }
