@@ -1,8 +1,12 @@
 package com.pragiti.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pragiti.dao.impl.CartDAOImpl;
@@ -20,12 +24,22 @@ public class CartController {
 		// ModelAndView (JSP Page, Command Name, Domain Object)
 		return new ModelAndView("home", "items", cartDAOImpl.showItems());
 	}
-	
-	public boolean addToCart()
-	{
+
+	@RequestMapping(value = "/addToCart")
+	public boolean addToCart(HttpServletRequest request, HttpSession session) {
+
+		String itemId = "";
+		itemId = request.getParameter("itemId");
+		System.out.println("" + itemId);
 		
+		CartDAOImpl cartDAOImpl=new CartDAOImpl();
+		int customerId=Integer.parseInt(""+session.getAttribute("customerId"));
+		
+		System.out.println(""+customerId);
+		
+		cartDAOImpl.addToCart(customerId, Integer.parseInt(itemId));
+		return false;
+
 	}
-	
-	
 
 }
