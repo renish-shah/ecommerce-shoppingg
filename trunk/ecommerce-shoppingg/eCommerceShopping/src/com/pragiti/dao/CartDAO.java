@@ -11,7 +11,7 @@ public interface CartDAO {
 	public boolean addToCart(int customerId, int productId);
 
 	public boolean removeFromCart(int customerId, int productId);
-
-	public boolean viewCart();
+	
+	public boolean viewCart(int customerId, int productId);
 
 }

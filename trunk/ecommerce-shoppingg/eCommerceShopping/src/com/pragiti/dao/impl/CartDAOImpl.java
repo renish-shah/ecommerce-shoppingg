@@ -99,14 +99,75 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public boolean viewCart() {
+	public boolean viewCart(int customerId, int productId) {
 		// TODO Auto-generated method stub
+		
+
+		Connection conn = null;
+		java.sql.Statement statement = null;
+
+		String sql = "SELECT productId from cart where customerId='"
+				+ customerId + "'";
+		
+		
+		try {
+			ConnectionDAO dao = new ConnectionDAOImpl().setupDataSource();
+			conn = dao.getJdbcConnection();
+
+			statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(sql);
+
+			while (rs.next()) {
+				System.out.println("" + rs.getString(0));
+			}
+			
+				
+			while(rs.next()) {
+				System.out.println("" + rs.getString(0));
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		sql = "insert into cart(customerId, productQuantity) values() where customerId='"
+				+ customerId + "' and productId='" + productId + "'";
+
+		
 		return false;
 	}
 
 	@Override
 	public boolean removeFromCart(int customerId, int productId) {
 		// TODO Auto-generated method stub
+
+		Connection conn = null;
+		java.sql.Statement statement = null;
+
+		customerId = 5;
+
+		String sql = "select product_quantity from cart where customerId='"
+				+ customerId + "'";
+
+		try {
+			ConnectionDAO dao = new ConnectionDAOImpl().setupDataSource();
+			conn = dao.getJdbcConnection();
+
+			statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(sql);
+
+			while (rs.next()) {
+				System.out.println("" + rs.getString(0));
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		sql = "DELETE FROM cart(customerId, productQuantity) values() where customerId='"
+				+ customerId + "' and productId='" + productId + "'";
+
+		
 		return false;
 	}
 
