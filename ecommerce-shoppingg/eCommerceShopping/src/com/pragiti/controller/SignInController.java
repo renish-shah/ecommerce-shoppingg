@@ -1,5 +1,7 @@
 package com.pragiti.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,7 +22,7 @@ public class SignInController {
 
 	@RequestMapping(value = "/signIn", method = RequestMethod.POST)
 	public String doSignIn(@ModelAttribute("email") Customer user,
-			BindingResult result) {
+			BindingResult result, HttpSession session) {
 
 		if (result.hasErrors()) {
 			return null;
@@ -28,6 +30,8 @@ public class SignInController {
 
 		System.out.println("Email:" + user.getEmail() + "Password:"
 				+ user.getPassword());
+		
+		session.setAttribute("customerId", user.get)
 
 		return "redirect:home.html";
 	}

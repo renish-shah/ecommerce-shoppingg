@@ -20,5 +20,12 @@ public class CartController {
 		// ModelAndView (JSP Page, Command Name, Domain Object)
 		return new ModelAndView("home", "items", cartDAOImpl.showItems());
 	}
+	
+	public boolean addToCart()
+	{
+		
+	}
+	
+	
 
 }
