@@ -26,7 +26,7 @@ public class CartController {
 	}
 
 	@RequestMapping(value = "/addToCart")
-	public boolean addToCart(HttpServletRequest request, HttpSession session) {
+	public String addToCart(HttpServletRequest request, HttpSession session) {
 
 		String itemId = "";
 		itemId = request.getParameter("itemId");
@@ -38,8 +38,8 @@ public class CartController {
 		System.out.println(""+customerId);
 		
 		cartDAOImpl.addToCart(customerId, Integer.parseInt(itemId));
-		return false;
-
+		
+		return "redirect:home.html";
 	}
 
 }
