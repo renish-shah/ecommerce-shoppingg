@@ -74,36 +74,37 @@ public class CartDAOImpl implements CartDAO {
 
 		// customerId = 5;
 
-		String sql = "select product_quantity from cart where customerId='"
-				+ customerId + "' and productId='" + productId + "'";
+		String sql = "select product_quantity from cart where customerId="
+				+ customerId + " and productId=" + productId + "";
 
 		try {
 			ConnectionDAO dao = new ConnectionDAOImpl().setupDataSource();
 			conn = dao.getJdbcConnection();
 
 			statement = conn.createStatement();
+			System.out.println("sql:" + sql);
 			ResultSet rs = statement.executeQuery(sql);
 
 			System.out.println("" + rs.getRow());
-			if (rs.getRow() == 0) {
+			boolean quantityFlag = false;
+			while (rs.next()) {
+
+				quantityFlag = true;
+
+				int productQuantity = rs.getInt(1);
+				System.out.println("Product Q :" + productQuantity);
+
+				sql = "update cart set customerId=" + customerId
+						+ ", productId=" + productId + ",product_quantity="
+						+ (productQuantity+1) + " where customerId=" + customerId
+						+ " and productId=" + productId + "";
+
+			}
+			if (quantityFlag == false) {
 				rs = null;
 				sql = "insert into cart(customerId, productId) values("
 						+ customerId + "," + productId + ")";
 
-			} else {
-
-				rs.next();
-				int productQuantity = rs.getInt(0);
-				System.out.println("Product Q :" + productQuantity);
-
-				sql = "insert into cart(customerId, productId, product_quantity) values('"
-						+ customerId
-						+ "','"
-						+ productId
-						+ "', '"
-						+ (productQuantity + 1)
-						+ "') where customerId='"
-						+ customerId + "' and productId='" + productId + "'";
 			}
 
 			System.out.println("SQL :" + sql);
