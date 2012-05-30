@@ -188,28 +188,56 @@ public class CartDAOImpl implements CartDAO {
 
 		Connection conn = null;
 		java.sql.Statement statement = null;
-
-		customerId = 5;
-
-		String sql = "select product_quantity from cart where customerId='"
-				+ customerId + "'";
+		
+		String sql = "select product_quantity from cart where customerId="
+				+ customerId + " and productId=" + productId + "";
 
 		try {
 			ConnectionDAO dao = new ConnectionDAOImpl().setupDataSource();
 			conn = dao.getJdbcConnection();
 
 			statement = conn.createStatement();
+			System.out.println("sql:" + sql);
 			ResultSet rs = statement.executeQuery(sql);
 
+			System.out.println("" + rs.getRow());
+			
 			while (rs.next()) {
-				System.out.println("" + rs.getString(0));
+
+				int productQuantity = rs.getInt(1);
+				System.out.println("Product Q :" + productQuantity);			
+			
+			if(productQuantity > 1)	
+			{	
+				sql = "update cart set customerId=" + customerId
+						+ ", productId=" + productId + ",product_quantity="
+						+ (productQuantity - 1) + " where customerId="
+						+ customerId + " and productId=" + productId + "";
+
+			}
+			
+			else  {
+			
+			sql = "Delete from cart where customerId = " + customerId + " and productId = " + productId + "";
 			}
 
-		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("SQL :" + sql);
+			statement = conn.createStatement();
+			int rowCount = statement.executeUpdate(sql);
+
+			System.out.println("Row Count :" + rowCount);
+			}
+			
+			return true;
+		}
+
+		catch (Exception e) {
+			System.out.println("Exception :" + e);
+			return false;
+		
 		} finally {
 			if (conn != null) {
-				try {
+			try {
 					conn.close();
 				} catch (SQLException e) {
 					System.out
@@ -220,10 +248,6 @@ public class CartDAOImpl implements CartDAO {
 			}
 		}
 
-		sql = "DELETE FROM cart(customerId, productQuantity) values() where customerId='"
-				+ customerId + "' and productId='" + productId + "'";
-
-		return false;
 	}
 
 }

@@ -1,16 +1,13 @@
 package com.pragiti.controller;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pragiti.dao.impl.CartDAOImpl;
@@ -68,9 +65,8 @@ public class CartController {
 
 		cartDAOImpl.removeFromCart(customerId, Integer.parseInt(itemId));
 
-		return "redirect:home.html";
+		return "redirect:viewCart.html?removeFromCart=success";
 	}
-
 	@RequestMapping(value = "/viewCart")
 	public ModelAndView viewCart(HttpServletRequest request, HttpSession session) {
 
@@ -80,5 +76,5 @@ public class CartController {
 
 		System.out.println("" + customerId);
 		return new ModelAndView("viewCart","items",cartDAOImpl.viewCart(customerId));
-	}
+	} 
 }
