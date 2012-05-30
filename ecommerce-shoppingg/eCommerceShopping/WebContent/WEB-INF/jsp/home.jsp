@@ -29,7 +29,7 @@
 				%>
 			</td>
 			<td><a href="">Home</a></td>
-			<td><a href="">View Cart</a></td>
+			<td><a href="viewCart.html">View Cart</a></td>
 
 			<td><a href="">SignOut</a></td>
 
