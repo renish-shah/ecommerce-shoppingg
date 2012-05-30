@@ -7,8 +7,7 @@ public class CreditCardDetails {
 	private String expyear;
 	private String expmonth;
 	private String cvv_number;
-	
-	
+
 	public String getNameOnCard() {
 		return nameOnCard;
 	}
