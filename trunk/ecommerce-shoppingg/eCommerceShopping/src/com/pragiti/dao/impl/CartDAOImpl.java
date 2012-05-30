@@ -188,7 +188,7 @@ public class CartDAOImpl implements CartDAO {
 
 		Connection conn = null;
 		java.sql.Statement statement = null;
-		
+
 		String sql = "select product_quantity from cart where customerId="
 				+ customerId + " and productId=" + productId + "";
 
@@ -201,43 +201,43 @@ public class CartDAOImpl implements CartDAO {
 			ResultSet rs = statement.executeQuery(sql);
 
 			System.out.println("" + rs.getRow());
-			
+
 			while (rs.next()) {
 
 				int productQuantity = rs.getInt(1);
-				System.out.println("Product Q :" + productQuantity);			
-			
-			if(productQuantity > 1)	
-			{	
-				sql = "update cart set customerId=" + customerId
-						+ ", productId=" + productId + ",product_quantity="
-						+ (productQuantity - 1) + " where customerId="
-						+ customerId + " and productId=" + productId + "";
+				System.out.println("Product Q :" + productQuantity);
 
-			}
-			
-			else  {
-			
-			sql = "Delete from cart where customerId = " + customerId + " and productId = " + productId + "";
+				if (productQuantity > 1) {
+					sql = "update cart set customerId=" + customerId
+							+ ", productId=" + productId + ",product_quantity="
+							+ (productQuantity - 1) + " where customerId="
+							+ customerId + " and productId=" + productId + "";
+
+				}
+
+				else {
+
+					sql = "Delete from cart where customerId = " + customerId
+							+ " and productId = " + productId + "";
+				}
+
+				System.out.println("SQL :" + sql);
+				statement = conn.createStatement();
+				int rowCount = statement.executeUpdate(sql);
+
+				System.out.println("Row Count :" + rowCount);
 			}
 
-			System.out.println("SQL :" + sql);
-			statement = conn.createStatement();
-			int rowCount = statement.executeUpdate(sql);
-
-			System.out.println("Row Count :" + rowCount);
-			}
-			
 			return true;
 		}
 
 		catch (Exception e) {
 			System.out.println("Exception :" + e);
 			return false;
-		
+
 		} finally {
 			if (conn != null) {
-			try {
+				try {
 					conn.close();
 				} catch (SQLException e) {
 					System.out
