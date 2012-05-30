@@ -133,28 +133,40 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public boolean viewCart(int customerId, int productId) {
-		// TODO Auto-generated method stub
+	public List<ProductItem> viewCart(int customerId) {
 
 		Connection conn = null;
 		java.sql.Statement statement = null;
 
-		String sql = "SELECT * FROM product swhere productId IN ( SELECT productId from cart where customerId='"
-				+ customerId + "')";
+		String sql = "SELECT p.productId, p.product_name, p.product_desc, p.product_price, c.product_quantity "
+				+ "FROM product p, cart c where p.productId=c.productId and c.customerId = '"
+				+ customerId + "'";
+
+		System.out.println("SQL :" + sql);
 
 		try {
 			ConnectionDAO dao = new ConnectionDAOImpl().setupDataSource();
 			conn = dao.getJdbcConnection();
 
 			statement = conn.createStatement();
+
 			ResultSet rs = statement.executeQuery(sql);
+			List<ProductItem> itemList = new ArrayList<>();
 
 			while (rs.next()) {
-				System.out.println("" + rs.getString(0));
+
+				ProductItem item = new ProductItem();
+				item.setId(rs.getString("productId"));
+				item.setDesc(rs.getString("product_desc"));
+				item.setName(rs.getString("product_name"));
+				item.setPrice(rs.getString("product_price"));
+				item.setQuantity(rs.getString("product_quantity"));
+				itemList.add(item);
 			}
+			return itemList;
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("Exception :" + e);
 		} finally {
 			if (conn != null) {
 				try {
@@ -167,11 +179,7 @@ public class CartDAOImpl implements CartDAO {
 				}
 			}
 		}
-
-		sql = "insert into cart(customerId, productQuantity) values() where customerId='"
-				+ customerId + "' and productId='" + productId + "'";
-
-		return false;
+		return null;
 	}
 
 	@Override
