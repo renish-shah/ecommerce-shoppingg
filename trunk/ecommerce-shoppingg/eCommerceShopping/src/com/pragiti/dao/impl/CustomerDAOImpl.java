@@ -43,7 +43,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 * System.out.println(customer1); }
 	 */
 	public int checkSignIn(Customer customer) {
-		
+
 		Connection conn = null;
 		java.sql.Statement statement = null;
 
@@ -61,12 +61,13 @@ public class CustomerDAOImpl implements CustomerDAO {
 			statement = conn.createStatement();
 
 			ResultSet rs = statement.executeQuery(sql);
-			
+
 			while (rs.next()) {
-				System.out.println("CustomerId is :"+rs.getString(CUSTOMER_ID));
+				System.out.println("CustomerId is :"
+						+ rs.getString(CUSTOMER_ID));
 				return Integer.parseInt(rs.getString(CUSTOMER_ID));
 			}
-			
+
 		} catch (Exception e) {
 			System.out.println("Exception in Checking SignIn:" + e);
 			return 0;
@@ -86,7 +87,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 
 	@Override
-	public boolean doSignUp(Customer customer) {
+	public int doSignUp(Customer customer) {
 
 		Connection conn = null;
 		java.sql.Statement statement = null;
@@ -101,7 +102,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 			statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
-				return false;
+				return 0;
 			}
 
 			sql = "INSERT INTO CUSTOMER "
@@ -113,11 +114,19 @@ public class CustomerDAOImpl implements CustomerDAO {
 			System.out.println("SQL :" + sql);
 
 			statement.executeUpdate(sql);
-			return true;
+
+			sql = "select customerId from customer where email = '"
+					+ customer.getEmail() + "'";
+			System.out.println("SQL :" + sql);
+			rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				System.out.println("CustomerId is :"
+						+ rs.getString(CUSTOMER_ID));
+				return Integer.parseInt(rs.getString(CUSTOMER_ID));
+			}
 
 		} catch (SQLException e) {
 			System.out.println("Exception :" + e);
-			return false;
 
 		} finally {
 			if (conn != null) {
@@ -131,6 +140,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 				}
 			}
 		}
+		return 0;
 
 	}
 

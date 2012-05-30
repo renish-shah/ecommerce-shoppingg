@@ -1,5 +1,7 @@
 package com.pragiti.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,13 +25,20 @@ public class SignUpController {
 
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
 	public String doSignUp(@ModelAttribute("user") Customer customer,
-			BindingResult result) {
+			BindingResult result, HttpSession session) {
 
 		System.out.println("First Name:" + customer.getFirstName()
 				+ "Last Name:" + customer.getLastName());
 
-		if(new CustomerDAOImpl().doSignUp(customer))
+		int customerId=new CustomerDAOImpl().doSignUp(customer);
+		
+		if(customerId!=0)
+		{
+			
+			session.setAttribute("customerId", customerId);
+			System.out.println("CustomerId :"+session.getAttribute("customerId"));
 			return "redirect:home.html";
+		}
 		else
 			return "redirect:signUp.html";
 	}
