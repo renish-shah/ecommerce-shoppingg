@@ -40,8 +40,7 @@ public class CartController {
 		System.out.println("" + itemId);
 
 		CartDAOImpl cartDAOImpl = new CartDAOImpl();
-		int customerId = Integer.parseInt(""
-				+ session.getAttribute("customerId"));
+		int customerId = Integer.parseInt(""+ session.getAttribute("customerId"));
 
 		System.out.println("" + customerId);
 
