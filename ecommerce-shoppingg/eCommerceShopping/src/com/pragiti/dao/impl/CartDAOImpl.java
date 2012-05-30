@@ -85,7 +85,7 @@ public class CartDAOImpl implements CartDAO {
 			System.out.println("sql:" + sql);
 			ResultSet rs = statement.executeQuery(sql);
 
-			System.out.println("" + rs.getRow());
+			
 			boolean quantityFlag = false;
 			while (rs.next()) {
 
