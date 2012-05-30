@@ -96,8 +96,8 @@ public class CartDAOImpl implements CartDAO {
 
 				sql = "update cart set customerId=" + customerId
 						+ ", productId=" + productId + ",product_quantity="
-						+ (productQuantity+1) + " where customerId=" + customerId
-						+ " and productId=" + productId + "";
+						+ (productQuantity + 1) + " where customerId="
+						+ customerId + " and productId=" + productId + "";
 
 			}
 			if (quantityFlag == false) {
@@ -139,8 +139,8 @@ public class CartDAOImpl implements CartDAO {
 		Connection conn = null;
 		java.sql.Statement statement = null;
 
-		String sql = "SELECT productId from cart where customerId='"
-				+ customerId + "'";
+		String sql = "SELECT * FROM product swhere productId IN ( SELECT productId from cart where customerId='"
+				+ customerId + "')";
 
 		try {
 			ConnectionDAO dao = new ConnectionDAOImpl().setupDataSource();
@@ -148,10 +148,6 @@ public class CartDAOImpl implements CartDAO {
 
 			statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
-
-			while (rs.next()) {
-				System.out.println("" + rs.getString(0));
-			}
 
 			while (rs.next()) {
 				System.out.println("" + rs.getString(0));
