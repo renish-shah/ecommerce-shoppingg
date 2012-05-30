@@ -70,5 +70,23 @@ public class CartController {
 		
 		return "redirect:home.html";
 	}
+	@RequestMapping(value = "/viewCart")
+	public String viewCart(HttpServletRequest request, HttpSession session) {
+
+		String itemId = "";
+		itemId = request.getParameter("itemId");
+		System.out.println("" + itemId);
+		
+		CartDAOImpl cartDAOImpl=new CartDAOImpl();
+		int customerId=Integer.parseInt(""+session.getAttribute("customerId"));
+		
+		System.out.println(""+customerId);
+		
+		cartDAOImpl.removeFromCart(customerId, Integer.parseInt(itemId));
+		
+		return "redirect:home.html";
+	}
+
+
 
 }
