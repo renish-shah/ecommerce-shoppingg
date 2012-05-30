@@ -16,7 +16,7 @@
 
 	<table border="1" align="center">
 		<tr>
-			<td>
+			<td colspan=3>
 				<%
 					HashMap map = (HashMap) request.getAttribute("allItems");
 					if (map.containsKey("addToCart")) {
@@ -41,7 +41,7 @@
 			<td>Name</td>
 			<td>Description</td>
 			<td>Price</td>
-			<td>Available Quantity</td>
+<!-- 			<td>Available Quantity</td> -->
 		</tr>
 		<%
 			for (ProductItem item : items) {
@@ -51,7 +51,7 @@
 			<td><%=item.getName()%></td>
 			<td><%=item.getDesc()%></td>
 			<td><%=item.getPrice()%></td>
-			<td align="center"><%=item.getQuantity()%></td>
+<%-- 			<td align="center"><%=item.getQuantity()%></td> --%>
 			<td><a href="addToCart.html?itemId=<%=item.getId()%>">Add to
 					Cart</a></td>
 		</tr>
