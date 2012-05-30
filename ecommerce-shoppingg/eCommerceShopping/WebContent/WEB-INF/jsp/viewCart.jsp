@@ -41,6 +41,8 @@
 			<td><%=item.getDesc()%></td>
 			<td><%=item.getPrice()%></td>
 		  	<td align="center"><%=item.getQuantity()%></td>
+		  				<td><a href="removeCart.html?itemId=<%=item.getId()%>">Remove From Cart</a></td>
+		  	
 				</tr>
 		<%
 			}
