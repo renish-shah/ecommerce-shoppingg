@@ -13,18 +13,29 @@
 
 	<c:set var="allItems" value="${allItems}" />
 
-	<%
-		HashMap map = (HashMap) request.getAttribute("allItems");
-		if (map.containsKey("addToCart")) {
-
-			String status = "" + map.get("addToCart");
-			out.println("Item Added to your Cart Successfully...!!!");
-		}
-		
-		List<ProductItem> items = (List<ProductItem>) map.get("items");
-	%>
 
 	<table border="1" align="center">
+		<tr>
+			<td>
+				<%
+					HashMap map = (HashMap) request.getAttribute("allItems");
+					if (map.containsKey("addToCart")) {
+
+						String status = "" + map.get("addToCart");
+						out.print("Item Added to your Cart Successfully...!!!");
+					}
+
+					List<ProductItem> items = (List<ProductItem>) map.get("items");
+				%>
+			</td>
+			<td><a href="">Home</a></td>
+			<td><a href="">View Cart</a></td>
+
+			<td><a href="">SignOut</a></td>
+
+		</tr>
+		<tr></tr>
+
 		<tr>
 			<td>ItemId</td>
 			<td>Name</td>
