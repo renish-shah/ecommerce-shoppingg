@@ -28,7 +28,15 @@ public class CheckoutController {
 
 		System.out.println("Name:" + creditcarddetails.getNameOnCard() + "Card Number:" + creditcarddetails.getCreditcard_number() + "CVV Number" + creditcarddetails.getCvv_number() + "expiry Year" + creditcarddetails.getExpyear() + "expiry Month " + creditcarddetails.getExpmonth());
 
-		return "redirect:contacts.html";
+		return "redirect:thankYou.html";
+	}
+	@RequestMapping(value = "/thankYou", method = RequestMethod.GET)
+	public ModelAndView showThankYou() {
+
+		// ModelAndView (JSP Page, Command Name, Domain Object)
+		return new ModelAndView("thankYou");
 	}
 
+	
+	
 }
