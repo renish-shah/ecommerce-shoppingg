@@ -15,6 +15,11 @@
 	<td><a href="signIn.html">SignOut</a></td>
 	</tr>
 	
+	<tr>
+		<td>Thank you for purchasing items</td>	
+	
+	</tr>
+	
 </table>
 </body>
 </html>
