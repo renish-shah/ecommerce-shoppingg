@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.pragiti.domain.ProductItem,java.util.List"%>
+<%@ page
+	import="com.pragiti.domain.ProductItem,java.util.List,java.util.Map,java.util.HashMap"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,11 +11,17 @@
 </head>
 <body>
 
-	<c:set var="items" value="${items}" />
+	<c:set var="allItems" value="${allItems}" />
 
 	<%
-		Object obj = request.getAttribute("items");
-		List<ProductItem> items = (List<ProductItem>) obj;
+		HashMap map = (HashMap) request.getAttribute("allItems");
+		if (map.containsKey("addToCart")) {
+
+			String status = "" + map.get("addToCart");
+			out.println("Item Added to your Cart Successfully...!!!");
+		}
+		
+		List<ProductItem> items = (List<ProductItem>) map.get("items");
 	%>
 
 	<table border="1" align="center">
