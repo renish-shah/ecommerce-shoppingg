@@ -79,9 +79,6 @@ public class CartController {
 				+ session.getAttribute("customerId"));
 
 		System.out.println("" + customerId);
-
-		;
-
 		return new ModelAndView("viewCart","items",cartDAOImpl.viewCart(customerId));
 	}
 }

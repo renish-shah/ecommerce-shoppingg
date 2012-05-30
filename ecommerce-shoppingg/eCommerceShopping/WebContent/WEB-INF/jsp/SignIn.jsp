@@ -10,18 +10,19 @@
 		<table>
 			<tr>
 				<td><form:label path="email">Email (Username)</form:label></td>
-				<td><form:input path="email" />
-				<form:errors path="email" /></td>
+				<td><form:input path="email" /></td>
+				<td><form:errors path="email" /></td>
 			</tr>
 			<tr>
-				<td>Password		<form:password path="password"></form:password></td>
+				<td><form:label path="password">Password</form:label></td>
+				<td><form:password path="password"></form:password></td>
 				<form:errors path="password" />
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="Sign In"  /></td>
+				<td colspan="2"><input type="submit" value="Sign In" /></td>
 			</tr>
 		</table>
-		
+
 		<td><a href="signUp.html"> New User? Click Here to Sign Up </a></td>
 	</form:form>
 </body>
